@@ -21,11 +21,22 @@ document.addEventListener("DOMContentLoaded", () => {
 
       // Add event listeners to buttons for filtering
       addFilterFunctionality(works);
+
+      return works; // Retourner les données de `works`
     } catch (error) {
       console.error("Error fetching data:", error);
+      return []; // Retourner un tableau vide en cas d'erreur
     }
   }
 
+  // Envoyer les données au fichier de modal
+  async function initializeModal() {
+    const works = await fetchData(); // Récupérer les données correctement
+    window.dispatchEvent(new CustomEvent("initializeModal", { detail: works })); // Envoyer les données à `modal.js`
+  }
+  document
+    .getElementById("admin-icon")
+    .addEventListener("click", initializeModal);
   // Generate buttons dynamically
   function generateCategoryButtons(categories) {
     categoriesContainer.innerHTML = ""; // Clear existing buttons
