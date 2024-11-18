@@ -319,6 +319,14 @@ input[type="submit"] {
   text-decoration-style: solid;
   text-align: center;
 }
+#admin-icon a {
+  font-family: " Work Sans";
+  font-size: 14px;
+  font-weight: 400;
+  text-align: center;
+  text-decoration: none;
+  color: #000;
+}
 
 footer nav ul {
   display: flex;

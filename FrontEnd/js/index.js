@@ -92,42 +92,4 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Initialize
   fetchData();
-  const form = document.querySelector("form");
-  form.addEventListener("submit", function (event) {
-    event.preventDefault();
-    const email = document.getElementById("email").value;
-    const password = document.getElementById("password").value;
-
-    const data = {
-      email,
-      password,
-    };
-
-    fetch("http://localhost:5678/api/users/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    })
-      .then((response) => {
-        console.log("Response status:", response.status);
-        if (!response.ok) {
-          throw new Error("Invalid email or password");
-        }
-        return response.json();
-      })
-      .then((json) => {
-        // console.log("Login successful:", json);
-        localStorage.setItem("authToken", json.token);
-        window.location.href = "/FrontEnd/index.html";
-      })
-      .catch((err) => {
-        console.error(err.message);
-        const errorMessage = document.getElementById("error-message");
-        errorMessage.textContent =
-          "Email ou mot de passe incorrect. Veuillez réessayer.";
-        errorMessage.style.color = "red";
-      });
-  });
 });
