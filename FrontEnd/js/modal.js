@@ -2,17 +2,38 @@ document.addEventListener("DOMContentLoaded", () => {
   const adminIcon = document.getElementById("admin-icon");
   const modal = document.getElementById("adminModal");
   const closeModal = modal.querySelector(".close");
+  const addImageModal = document.getElementById("addImageModal");
+  const closeAddImageModal = addImageModal.querySelector(".close");
   const imageList = document.getElementById("imageList");
   const addImageButton = document.getElementById("addImageButton");
+  const backArrow = document.querySelector(".back-arrow");
 
   let works = [];
   if (closeModal) {
     modal.style.display = "none";
   }
 
+  addImageButton.addEventListener("click", () => {
+    addImageModal.style.display = "block";
+  });
+
+  backArrow.addEventListener("click", () => {
+    addImageModal.style.display = "none";
+    modal.style.display = "block";
+  });
+
+  closeAddImageModal.addEventListener("click", () => {
+    addImageModal.style.display = "none";
+  });
+
   window.addEventListener("click", (event) => {
     if (event.target === modal) {
       modal.style.display = "none";
+    }
+  });
+  window.addEventListener("click", (event) => {
+    if (event.target === addImageModal) {
+      addImageModal.style.display = "none";
     }
   });
   // Écouter l'événement personnalisé et afficher les images
