@@ -47,7 +47,9 @@ document.addEventListener("DOMContentLoaded", () => {
       deleteIcon.textContent = "🗑️"; // Icône delete
       deleteIcon.classList.add("delete-icon");
       deleteIcon.addEventListener("click", () => {
-        deleteImage(work.id);
+        if (confirm("Voulez-vous vraiment supprimer cette image ?")) {
+          deleteImage(work.id, imageContainer); // Supprime après confirmation
+        }
       });
       imageContainer.appendChild(deleteIcon);
 
@@ -56,7 +58,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // Supprimer une image
-  async function deleteImage(id) {
+  async function deleteImage(id, element) {
     const token = localStorage.getItem("authToken");
     if (!token) {
       console.error("Token manquant. Veuillez vous connecter.");
@@ -74,10 +76,13 @@ document.addEventListener("DOMContentLoaded", () => {
       if (!response.ok) {
         throw new Error("Erreur lors de la suppression");
       }
+      // Supprime l'élément du DOM après succès
+      element.remove(); // Retirer l'élément HTML
+      console.log(`Image ${id} supprimée avec succès.`);
       works = works.filter((work) => work.id !== id); // Mettre à jour localement
       renderImages(); // Rafraîchir la liste
     } catch (error) {
-      console.error("Erreur : ", error);
+      console.error("Erreur :", error);
     }
   }
 });
